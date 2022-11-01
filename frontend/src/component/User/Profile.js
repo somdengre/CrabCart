@@ -43,7 +43,7 @@ const Profile = () => {
                                 <p>{String(user.createdAt).substr(0, 10)}</p>
                             </div>
                             <div>
-                                <Link to="/oders">My Orders</Link>
+                                <Link to="/orders">My Orders</Link>
                                 <Link to="/password/update"> Change Password</Link>
                             </div>
                         </div>
