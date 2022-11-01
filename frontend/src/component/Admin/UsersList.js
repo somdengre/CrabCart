@@ -3,7 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import "./productList.css"
 import {useSelector,useDispatch} from "react-redux"
 import {Link, useNavigate} from "react-router-dom"
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData"
 import EditIcon from '@mui/icons-material/Edit';
@@ -17,7 +18,7 @@ const UsersList = () => {
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
-    const alert=useAlert();
+    
     const {error,users} =useSelector(state=> state.allUsers);
     const {error:deleteError,isDeleted,message} = useSelector(state=>state.profile);
 
@@ -27,21 +28,21 @@ const UsersList = () => {
 
     useEffect(()=>{
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         if(deleteError){
-            alert.error(deleteError);
+            toast.error(deleteError);
             dispatch(clearErrors());
         }
 
         if(isDeleted){
-            alert.success(message);
-            navigate("/admin/users");
+            toast.success(message);
+            setTimeout(() => navigate("/admin/users"), 4000);
             dispatch({type:DELETE_USER_RESET})
         }
         dispatch(getAllUsers());
-    },[dispatch,alert,error,deleteError,navigate,isDeleted,message]);
+    },[dispatch,toast,error,deleteError,navigate,isDeleted,message]);
 
     const columns=[
         {field:"id",headerName:"User ID",minWidth:200,flex:0.5},
@@ -84,6 +85,7 @@ const UsersList = () => {
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
         <MetaData title={`All USERS - Admin`}/>
         <div className="dashboard">
             <SideBar/>

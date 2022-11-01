@@ -4,7 +4,8 @@ import "./productList.css"
 import {useSelector,useDispatch} from "react-redux"
 import { clearErrors,getAdminProduct,deleteProduct } from '../../actions/productAction'
 import {Link, useNavigate} from "react-router-dom"
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData"
 import EditIcon from '@mui/icons-material/Edit';
@@ -16,7 +17,7 @@ const ProductList = () => {
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
-    const alert=useAlert();
+    
     const {error,products} =useSelector(state=> state.products);
     const {error:deleteError,isDeleted} = useSelector(state => state.product);
 
@@ -26,21 +27,22 @@ const ProductList = () => {
 
     useEffect(()=>{
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         if(deleteError){
-            alert.error(deleteError);
+            toast.error(deleteError);
             dispatch(clearErrors());
         }
 
         if(isDeleted){
-            alert.success("Product Deleted Successfully");
-            navigate("/admin/dashboard");
+            toast.success("Product Deleted Successfully");
+            setTimeout(() => navigate("/admin/dashboard"), 4000);
+            
             dispatch({type:DELETE_PRODUCT_RESET})
         }
         dispatch(getAdminProduct());
-    },[dispatch,alert,error,deleteError,navigate,isDeleted]);
+    },[dispatch,toast,error,deleteError,navigate,isDeleted]);
 
     const columns=[
         {field:"id",headerName:"Product ID",minWidth:200,flex:0.5},
@@ -78,6 +80,7 @@ const ProductList = () => {
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
         <MetaData title={`All Proudcts - Admin`}/>
         <div className="dashboard">
             <SideBar/>

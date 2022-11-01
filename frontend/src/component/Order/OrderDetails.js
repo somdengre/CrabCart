@@ -6,26 +6,28 @@ import {Link,useParams} from "react-router-dom"
 import { Typography } from '@mui/material';
 import { getOrderDetails,clearErrors } from '../../actions/orderAction'
 import Loader from "../layout/loader/Loader"
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OrderDetails = () => {
 
     const {order,error,loading} = useSelector(state=>state.orderDetails)
     const {id}=useParams();
     const dispatch=useDispatch();
-    const alert=useAlert();
+    
 
     useEffect(()=>{
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         dispatch(getOrderDetails(id));
-    },[dispatch,alert,error,id])
+    },[dispatch,toast,error,id])
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
         {loading?<Loader/>:<Fragment>
                 <MetaData title="Order Details"/>
                 <div className="orderDetailsPage">

@@ -5,7 +5,8 @@ import MetaData from "../layout/MetaData"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { Typography } from '@mui/material';
 import { getOrderDetails, clearErrors, updateOrder } from '../../actions/orderAction'
-import { useAlert } from "react-alert";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from "../layout/loader/Loader"
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { Button } from '@mui/material';
@@ -20,25 +21,25 @@ const ProcessOrder = () => {
     const { error: updateError, isUpdated } = useSelector((state) => state.order);
     const [status, setStatus] = useState("");
 
-    const alert = useAlert();
+    
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         if (updateError) {
-            alert.error(updateError);
+            toast.error(updateError);
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            alert.success("Order Updated Successfully");
+            toast.success("Order Updated Successfully");
             dispatch({ type: UPDATE_ORDER_RESET });
 
         }
 
         dispatch(getOrderDetails(id));
-    }, [dispatch, alert, error, id, isUpdated, updateError])
+    }, [dispatch, toast, error, id, isUpdated, updateError])
 
 
 
@@ -53,6 +54,8 @@ const ProcessOrder = () => {
 
     return (
         <Fragment>
+                    <ToastContainer autoClose={3000}/>
+
             <MetaData title="Process Order" />
             <div className="dashboard">
                 <SideBar />

@@ -3,7 +3,8 @@ import "./newProduct.css"
 import { useParams,useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from "react-redux"
 import { clearErrors,updateProduct ,getProductDetails} from '../../actions/productAction'
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData"
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
@@ -19,7 +20,7 @@ const UpdateProduct = () => {
     const params=useParams();
     const navigate=useNavigate();
     const dispatch=useDispatch();
-    const alert=useAlert();
+    
     const productId = params.id;
 
     const {error,product} = useSelector((state)=> state.productDetails);
@@ -58,19 +59,19 @@ const UpdateProduct = () => {
             setOldImages(product.images);
         }
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         if(updateError){
-            alert.error(updateError);
+            toast.error(updateError);
             dispatch(clearErrors());
         }
         if(isUpdated){
-            alert.success("Product Updated Successfully");
-            navigate("/admin/products");
+            toast.success("Product Updated Successfully");
+            setTimeout(() => navigate("/admin/products"), 4000);
             dispatch({type:UPDATE_PRODUCT_RESET});
         }
-    },[dispatch,alert,error,params,isUpdated,productId,product]);
+    },[dispatch,toast,error,params,isUpdated,productId,product]);
 
 
     const updateProductSubmitHandler = (e)=>{
@@ -111,6 +112,7 @@ const UpdateProduct = () => {
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
         <MetaData title="Create Product"/>
         <div className="dashboard">
             <SideBar/>

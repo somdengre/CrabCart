@@ -8,7 +8,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useAlert } from "react-alert";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { logout } from '../../../actions/userAction';
 import { useDispatch ,useSelector} from 'react-redux';
 
@@ -18,7 +19,7 @@ function UserOptions({ user }) {
 
     const {cartItems} = useSelector( state => state.cart)
     const navigate = useNavigate();
-    const alert = useAlert();
+    
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch();
     const options = [
@@ -46,12 +47,13 @@ function UserOptions({ user }) {
     }
     function logoutUser() {
         dispatch(logout());
-        alert.success("Logout Successfully")
+        toast.success("Logout Successfully")
     }
 
     return (
         <Fragment>
             <Backdrop open={open} style={{ zIndex: "10" }} />
+            <ToastContainer autoClose={3000}/>
             <SpeedDial
                 style={{ zIndex: "11" }}
                 className='speedDial'

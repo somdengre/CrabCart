@@ -4,7 +4,8 @@ import Loader from "../layout/loader/Loader"
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrors, forgotPassword } from '../../actions/userAction'
-import { useAlert } from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import MetaData from '../layout/MetaData'
 
 const ForgotPassword = () => {
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
     const [email,setEmail] = useState("");
     
     const { error, message, loading } = useSelector(state => state.forgotPassword)
-    const alert = useAlert();
+    
 
 
     const forgotPasswordSubmit = (e) => {
@@ -32,20 +33,21 @@ const ForgotPassword = () => {
     useEffect(() => {
 
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if (message) {
 
-            alert.success(message);
+            toast.success(message);
 
         }
-    }, [dispatch, error, alert, message])
+    }, [dispatch, error, toast, message])
 
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
             {loading ? <Loader/> :
             <Fragment>
             <MetaData title="Forgot Password"/>

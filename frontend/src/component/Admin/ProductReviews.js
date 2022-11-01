@@ -4,7 +4,8 @@ import "./productReviews.css"
 import {useSelector,useDispatch} from "react-redux"
 import { clearErrors,getAllReviews, deleteReviews} from '../../actions/productAction'
 import { useNavigate} from "react-router-dom"
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData"
 import StarIcon from '@mui/icons-material/Star';
@@ -16,7 +17,6 @@ const ProductReviews = () => {
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
-    const alert=useAlert();
     const {error:deleteError,isDeleted} = useSelector(state => state.review);
     const {error,reviews,loading} =useSelector(state=> state.productReviews);
     const [productId, setProductId] = useState("")
@@ -37,21 +37,21 @@ const ProductReviews = () => {
         }
 
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         if(deleteError){
-            alert.error(deleteError);
+            toast.error(deleteError);
             dispatch(clearErrors());
         }
 
         if(isDeleted){
-            alert.success("Review Deleted Successfully");
-            navigate("/admin/reviews");
+            toast.success("Review Deleted Successfully");
+            setTimeout(() => navigate("/admin/reviews"), 4000);
             dispatch({type:DELETE_REVIEW_RESET})
         }
         
-    },[dispatch,alert,error,deleteError,navigate,isDeleted,productId]);
+    },[dispatch,toast,error,deleteError,navigate,isDeleted,productId]);
 
     const columns=[
         {field:"id",headerName:"Review ID",minWidth:200,flex:0.5},

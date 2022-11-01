@@ -7,7 +7,8 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrors, login, register } from '../../actions/userAction'
-import { useAlert } from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginSignUp = () => {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const LoginSignUp = () => {
     const location = useLocation();
     const { error, loading, isAuthenticated } = useSelector(state => state.user)
 
-    const alert = useAlert();
+   
     const loginTab = useRef(null);
     const registerTab = useRef(null);
     const switcherTab = useRef(null);
@@ -76,7 +77,7 @@ const LoginSignUp = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
@@ -84,7 +85,7 @@ const LoginSignUp = () => {
 
             navigate(redirect);
         }
-    }, [dispatch, error, alert, navigate, isAuthenticated,redirect])
+    }, [dispatch, error, toast, navigate, isAuthenticated,redirect])
 
     const switchTabs = (e, tab) => {
         if (tab === "login") {
@@ -107,6 +108,7 @@ const LoginSignUp = () => {
     return (
         loading ? <Loader /> : (
             <Fragment>
+                <ToastContainer autoClose={3000}/>
                 <div className="LoginSignUpContainer">
                     <div className="LoginSignUpBox">
                         <div className="">

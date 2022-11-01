@@ -3,7 +3,8 @@ import "./newProduct.css"
 import { useParams,useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from "react-redux"
 import { clearErrors,createProduct } from '../../actions/productAction'
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData"
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
@@ -19,7 +20,7 @@ const NewProduct = () => {
     const navigate=useNavigate();
     const params=useParams();
     const dispatch=useDispatch();
-    const alert=useAlert();
+   
 
     const {loading,error,success} = useSelector((state) =>state.newProduct);
 
@@ -43,15 +44,17 @@ const NewProduct = () => {
 
     useEffect(()=>{
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         if(success){
-            alert.success("Product Created Successfully");
-            navigate("/admin/dashboard");
+            
+            toast.success("Product Created Successfully");
+            setTimeout(() => navigate("/admin/dashboard"), 4000);
             dispatch({type:NEW_PRODUCT_RESET});
         }
-    },[dispatch,alert,error,params,success]);
+        
+    },[dispatch,toast,error,params,success]);
 
 
     const createProductSubmitHandler = (e)=>{
@@ -91,6 +94,7 @@ const NewProduct = () => {
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
         <MetaData title="Create Product"/>
         <div className="dashboard">
             <SideBar/>

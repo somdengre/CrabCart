@@ -7,7 +7,8 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrors, updateProfile } from '../../actions/userAction'
-import { useAlert } from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { loadUser } from '../../actions/userAction'
 import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 import MetaData from '../layout/MetaData'
@@ -19,7 +20,7 @@ const UpdateProfile = () => {
     const navigate = useNavigate();
     const { user } = useSelector(state => state.user)
     const { error, isUpdated, loading } = useSelector(state => state.profile)
-    const alert = useAlert();
+    
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -65,27 +66,29 @@ const UpdateProfile = () => {
                 setAvatarPreview(user.avatar.url);
         }
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if (isUpdated) {
 
-            alert.success("Profile Updates Successfully");
-            navigate("/account");
+            toast.success("Profile Updates Successfully");
+            setTimeout(() => navigate("/account"), 4000);
+            
             dispatch(loadUser());
 
             dispatch({
                 type: UPDATE_PROFILE_RESET
             })
         }
-    }, [dispatch, error, alert, navigate, user, isUpdated])
+    }, [dispatch, error, toast, navigate, user, isUpdated])
 
 
     return (
         <Fragment>
             {loading ? <Loader/> :
             <Fragment>
+                <ToastContainer autoClose={3000}/>
             <MetaData title="Update Profile"/>
             <div className="updateProfileContainer">
                 <div className="updateProfileBox">

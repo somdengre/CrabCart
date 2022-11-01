@@ -6,13 +6,14 @@ import MetaData from "../layout/MetaData"
 import { getProduct } from "../../actions/productAction"
 import { useSelector, useDispatch } from "react-redux"
 import Loader from '../layout/loader/Loader'
-import { useAlert } from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 const Home = () => {
 
-    const alert = useAlert();
+    
     const dispatch = useDispatch();
     const { loading, error, products, productsCount } = useSelector(state => state.products)
 
@@ -20,16 +21,17 @@ const Home = () => {
 
 
         if (error) {
-            return alert.error(error);
+            return toast.error(error);
         }
         dispatch(getProduct());
         // console.log("child useEffect");
-    }, [dispatch, error, alert])
+    }, [dispatch, error, toast])
 
 
 
     return (
         <Fragment>
+            <ToastContainer autoClose={3000}/>
             {loading ? <Loader /> : <Fragment>
 
                 <MetaData title="CraB-CarT" />

@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import Pagination from "react-js-pagination"
 import Slider from '@mui/material/Slider';
-import { useAlert } from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Typography } from '@mui/material';
 import MetaData from "../layout/MetaData"
 
@@ -27,7 +28,7 @@ const Products = () => {
 
 
     const dispatch = useDispatch();
-    const alert = useAlert();
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([0, 25000])
     const [category, setCategory] = useState("");
@@ -43,16 +44,17 @@ const Products = () => {
     }
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         dispatch(getProduct(keyword, currentPage, price, category, ratings));
-    }, [dispatch, alert, error, keyword, currentPage, price, category, ratings])
+    }, [dispatch, toast, error, keyword, currentPage, price, category, ratings])
 
     let count = filteredProductsCount;
 
     return (
         <Fragment>
+            <ToastContainer autoClose={3000}/>
             {
                 loading ? <Loader /> :
                     <Fragment>

@@ -6,7 +6,8 @@ import { clearErrors, getProductDetails, newReview } from "../../actions/product
 import { useParams } from "react-router-dom"
 import ReviewCard from "./ReviewCard.js"
 import Loader from '../layout/loader/Loader'
-import { useAlert } from "react-alert";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import MetaData from '../layout/MetaData';
 import {addItemsToCart} from "../../actions/cartAction"
 import {
@@ -27,7 +28,7 @@ const ProductDetails = () => {
     const [rating,setRating] =useState(0);
     const [comment,setComment] =useState("");
 
-    const alert = useAlert();
+    
 
     const dispatch = useDispatch();
 
@@ -48,7 +49,7 @@ const ProductDetails = () => {
     const addToCartHandler = () =>{
         
         dispatch(addItemsToCart(params.id,quantity));
-        alert.success("Item Added to Cart");
+        toast.success("Item Added to Cart");
     }
 
     const submitReviewToggle =()=>{
@@ -66,22 +67,22 @@ const ProductDetails = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         
         if (reviewError) {
-            alert.error(reviewError);
+            toast.error(reviewError);
             dispatch(clearErrors());
         }
 
         if(success){
-            alert.success("Review Submitted Successfully");
+            toast.success("Review Submitted Successfully");
             dispatch({type:NEW_REVIEW_RESET})
         }
         
         dispatch(getProductDetails(params.id));
-    }, [dispatch, params.id, error, alert,reviewError,success])
+    }, [dispatch, params.id, error, toast,reviewError,success])
 
     const options = {
         size:"large",
@@ -92,6 +93,7 @@ const ProductDetails = () => {
 
     return (
         <Fragment>
+             <ToastContainer autoClose={3000}/>
             {loading ? <Loader /> : <Fragment>
                 <MetaData title={`${product.name}--CRABCART`} />
                 <div className="ProductDetails">

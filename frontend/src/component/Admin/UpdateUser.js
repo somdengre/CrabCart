@@ -1,7 +1,8 @@
 import React,{Fragment,useEffect,useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from "react-redux"
-import {useAlert} from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData"
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
@@ -17,7 +18,7 @@ const UpdateUser = () => {
     const navigate=useNavigate();
     const params=useParams();
     const dispatch=useDispatch();
-    const alert=useAlert();
+    
 
     const {loading,error,user} = useSelector((state) =>state.userDetails);
     const {loading:updateLoading,error:updateError,isUpdated} = useSelector((state) =>state.profile);
@@ -40,21 +41,21 @@ const UpdateUser = () => {
            
         }
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if(updateError){
-            alert.error(updateError);
+            toast.error(updateError);
             dispatch(clearErrors());
         }
 
         if(isUpdated){
-            alert.success("User Updated Successfully");
-            navigate("/admin/users");
+            toast.success("User Updated Successfully");
+            setTimeout(() => navigate("/admin/users"), 4000);
             dispatch({type:UPDATE_USER_RESET});
         }
-    },[dispatch,alert,error,params,isUpdated,updateError,user,userId]);
+    },[dispatch,toast,error,params,isUpdated,updateError,user,userId]);
 
 
     const updateUserSubmitHandler = (e)=>{
@@ -71,6 +72,7 @@ const UpdateUser = () => {
 
   return (
     <Fragment>
+        <ToastContainer autoClose={3000}/>
         <MetaData title="Update User"/>
         <div className="dashboard">
             <SideBar/>

@@ -5,7 +5,8 @@ import Loader from "../layout/loader/Loader"
 import {  useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrors, updatePassword } from '../../actions/userAction'
-import { useAlert } from "react-alert"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
 import MetaData from '../layout/MetaData'
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -19,7 +20,7 @@ const UpdatePassword = () => {
     const navigate = useNavigate();
   
     const { error, isUpdated, loading } = useSelector(state => state.profile)
-    const alert = useAlert();
+    
 
     const [oldPassword,setOldPassword] = useState("");
     const [newPassword,setNewPassword] = useState("");
@@ -41,26 +42,28 @@ const UpdatePassword = () => {
         
         
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if (isUpdated) {
 
-            alert.success("Profile Updates Successfully");
-            navigate("/account");
+            toast.success("Profile Updates Successfully");
+            setTimeout(() => navigate("/account"), 4000);
+            
             
 
             dispatch({
                 type: UPDATE_PASSWORD_RESET
             })
         }
-    }, [dispatch, error, alert, navigate,isUpdated])
+    }, [dispatch, error, toast, navigate,isUpdated])
 
   return (
     <Fragment>
             {loading ? <Loader/> :
             <Fragment>
+                <ToastContainer autoClose={3000}/>
             <MetaData title="Change Password"/>
             <div className="updatePasswordContainer">
                 <div className="updatePasswordBox">
