@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar.js"
 import "./dashboard.css"
 import {Link} from 'react-router-dom'
 import { Typography } from '@mui/material';
-import {Doughnut,Line} from "react-chartjs-2"
+// import {Doughnut,Line} from "react-chartjs-2"
 import { getAdminProduct } from '../../actions/productAction'
 import {useSelector,useDispatch} from "react-redux"
 import { getAllOrders } from '../../actions/orderAction.js'
@@ -84,12 +84,12 @@ const Dashboard = () => {
                 </Link>
             </div>
 
-            <div className="lineChart">
+            {/* <div className="lineChart">
                 <Line data={lineState} />
             </div>
             <div className="doughnutChart">
                 <Doughnut data={doughnutState}/>
-            </div>
+            </div> */}
         </div>
     </div>
   )
