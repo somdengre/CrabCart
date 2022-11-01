@@ -1,8 +1,8 @@
 import React from "react";
 import "./aboutSection.css";
-import { Button, Typography, Avatar } from "@material-ui/core";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import GitHubIcon from '@material-ui/icons/GitHub';
+import { Button, Typography, Avatar } from "@mui/material";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import GitHubIcon from '@mui/icons-material/GitHub';
 const About = () => {
   const visitInstagram = () => {
     window.location = "https://instagram.com/piyushyadav4493";

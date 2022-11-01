@@ -3,12 +3,12 @@ import SideBar from "./Sidebar"
 import { useDispatch, useSelector } from "react-redux"
 import MetaData from "../layout/MetaData"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material';
 import { getOrderDetails, clearErrors, updateOrder } from '../../actions/orderAction'
 import { useAlert } from "react-alert";
 import Loader from "../layout/loader/Loader"
-import AccountTreeIcon from "@material-ui/icons/AccountTree"
-import { Button } from "@material-ui/core"
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import { Button } from '@mui/material';
 import { UPDATE_ORDER_RESET } from '../../constants/orderConstants'
 import "./processOrder.css"
 

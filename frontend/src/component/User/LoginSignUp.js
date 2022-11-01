@@ -2,9 +2,9 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import "./LoginSignUp.css"
 import Loader from "../layout/loader/Loader"
 import { Link, useNavigate,useLocation } from "react-router-dom"
-import MailOutlineIcon from "@material-ui/icons/MailOutline"
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import FaceIcon from "@material-ui/icons/Face"
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrors, login, register } from '../../actions/userAction'
 import { useAlert } from "react-alert"

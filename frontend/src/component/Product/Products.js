@@ -7,9 +7,9 @@ import ProductCard from "../Home/ProductCard"
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import Pagination from "react-js-pagination"
-import Slider from "@material-ui/core/Slider"
+import Slider from '@mui/material/Slider';
 import { useAlert } from "react-alert"
-import { Slide, Typography } from '@material-ui/core'
+import { Typography } from '@mui/material';
 import MetaData from "../layout/MetaData"
 
 

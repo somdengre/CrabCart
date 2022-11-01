@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import Sidebar from "./Sidebar.js"
 import "./dashboard.css"
 import {Link} from 'react-router-dom'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material';
 import {Doughnut,Line} from "react-chartjs-2"
 import { getAdminProduct } from '../../actions/productAction'
 import {useSelector,useDispatch} from "react-redux"
