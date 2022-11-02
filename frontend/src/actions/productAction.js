@@ -4,7 +4,7 @@ import {DELETE_REVIEW_RESET,DELETE_REVIEW_FAIL, DELETE_REVIEW_SUCCESS, DELETE_RE
 import {ALL_REVIEWS_FAIL, ALL_REVIEWS_SUCCESS, ALL_REVIEWS_REQUEST} from "../constants/productConstants"
 
 
-export const getProduct = (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) => async (dispatch) => {
+export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000000], category, ratings = 0) => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCT_REQUEST });
 

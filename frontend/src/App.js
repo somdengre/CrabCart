@@ -11,7 +11,7 @@ import Products from "./component/Product/Products.js"
 import Search from "./component/Product/Search.js"
 import LoginSignUp from './component/User/LoginSignUp';
 import store from "./store"
-import { loadUser, updateUser } from './actions/userAction';
+import { loadUser } from './actions/userAction';
 import UserOptions from "./component/layout/Header/UserOptions.js"
 import { useSelector } from 'react-redux';
 import Profile from "./component/User/Profile.js"
@@ -78,10 +78,10 @@ function App() {
 
     </Routes>
     <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/product/:id" element={<ProductDetails />} />
-      <Route exact path="/products" element={<Products />} />
-      <Route path="/products/:keyword" element={<Products />} />
+      <Route exact path="/" element={<><Home /> <Footer /></>} />
+      <Route exact path="/product/:id" element={<><ProductDetails /><Footer /></>} />
+      <Route exact path="/products" element={<><Products /><Footer/></>} />
+      <Route path="/products/:keyword" element={<><Products /><Footer/></>} />
       <Route exact path="/search" element={<Search />} />
       <Route exact path="/account" element={<ProtectedRoute Component={Profile} />} />
       <Route exact path="/contact" element={<Contact/>} />
@@ -94,13 +94,13 @@ function App() {
       <Route exact path="/password/reset/:token" element={<ResetPassword/>} />
 
       <Route exact path="/login" element={<LoginSignUp />} />
-      <Route exact path="/cart" element={<Cart />} />
-      <Route exact path="/shipping" element={<ProtectedRoute Component={Shipping} />} />
-      <Route exact path="/order/confirm" element={<ProtectedRoute Component={ConfirmOrder} />} />
+      <Route exact path="/cart" element={<><Cart /><Footer /></>} />
+      <Route exact path="/shipping" element={<><ProtectedRoute Component={Shipping} /><Footer/></>} />
+      <Route exact path="/order/confirm" element={<><ProtectedRoute Component={ConfirmOrder} /><Footer/></>} />
       
-      <Route exact path="/success" element={<ProtectedRoute Component={OrderSuccess} />} />
+      <Route exact path="/success" element={<><ProtectedRoute Component={OrderSuccess} /><Footer/></>} />
       <Route exact path="/orders" element={<ProtectedRoute Component={MyOrders} />} />
-      <Route exact path="/order/:id" element={<ProtectedRoute Component={OrderDetails} />} />
+      <Route exact path="/order/:id" element={<><ProtectedRoute Component={OrderDetails} /><Footer/></>} />
       <Route exact path="/admin/dashboard" element={<ProtectedRoute isAdmin="true" Component={DashBoard} />} />
       <Route exact path="/admin/products" element={<ProtectedRoute isAdmin="true" Component={ProductList} />} />
       <Route exact path="/admin/product" element={<ProtectedRoute isAdmin="true" Component={NewProduct} />} />
@@ -110,11 +110,11 @@ function App() {
       <Route exact path="/admin/users" element={<ProtectedRoute isAdmin="true" Component={UsersList} />} />
       <Route exact path="/admin/user/:id" element={<ProtectedRoute isAdmin="true" Component={UpdateUser} />} />
       <Route exact path="/admin/reviews" element={<ProtectedRoute isAdmin="true" Component={ProductReviews} />} />
-      <Route path='*'  element={<NotFound />} />
+      <Route path='*'  element={window.location.pathname === "/process/payment" ? null : <><NotFound/><Footer/></>} />
 
       {/* <ProtectedRoute exact path="/account" element={<Profile />} /> */}
     </Routes>
-    <Footer />
+    
   </Router>
     // <Home />
   );

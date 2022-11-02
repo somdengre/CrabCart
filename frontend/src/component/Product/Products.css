@@ -11,7 +11,7 @@
 .products {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 6vmax;
+    padding: 0 1vmax 0 9vmax;
     min-height: 30vh;
     justify-content: center;
     min-height: 30vh;
@@ -101,6 +101,9 @@
         width: 20vmax;
         position: static;
         margin: auto;
+    }
+    .products{
+        padding: 0 0.3vmax ;
     }
 
     .page-link {
