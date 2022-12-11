@@ -1,6 +1,6 @@
-const app = require("./app");
+const app = require("./backend/app");
 // const dotenv = require("dotenv");
-const connectDatabase = require("./config/database")
+const connectDatabase = require("./backend/config/database")
 const cloudinary = require("cloudinary");
 //Handling Uncaught Exception eg. console.log(youtube);
 
